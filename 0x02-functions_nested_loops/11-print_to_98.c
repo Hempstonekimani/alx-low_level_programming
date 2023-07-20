@@ -1,34 +1,22 @@
 #include "main.h"
 #include <stdio.h>
-
 /**
- * print_to_98 - Prints all natural numbers from n to 98
- * @n: Starting number
+ * print_to_98 - prints all natural number from n to 98
  *
- * Description: Print each number in uppercase
+ * @n: starting point
+ *
+ * Return: returns nothing
+ *
  */
 void print_to_98(int n)
 {
-    int i;
-
-    if (n <= 98)
-    {
-        for (i = n; i <= 98; i++)
-        {
-            printf("%d", i); // Print the number as it is
-            if (i != 98)
-                printf(", ");
-        }
-    }
-    else
-    {
-        for (i = n; i >= 98; i--)
-        {
-            printf("%d", i); // Print the number as it is
-            if (i != 98)
-                printf(", ");
-        }
-    }
-    printf("\n");
+	if (n <= 98)
+	{
+		for (n = n; n <= 97; n++)
+			printf("%d, ", n);
+	}
+	else
+		for (n = n; n > 98; n--)
+			printf("%d, ", n);
+	printf("98\n");
 }
-
