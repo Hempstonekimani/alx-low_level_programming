@@ -2,45 +2,49 @@
 #include "main.h"
 
 /**
- * *_memset - fills memory with a constant byte
- * @s: memory area to be filled
- * @b: char to copy
- * @n: number of times to copy b
+ * *_realloc - reallocates a memory block using malloc and free
+ * @ptr: pointer to the memory previsouly allocated by malloc
+ * @old_size: size of the allocated memory for ptr
+ * @new_size: new size of the new memory block
  *
- * Return: pointer to the memory area s
+ * Return: pointer to the newly allocated memory block
  */
-char *_memset(char *s, char b, unsigned int n)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
+	char *ptr1;
+	char *old_ptr;
 	unsigned int i;
 
-	for (i = 0; i < n; i++)
+	if (new_size == old_size)
+		return (ptr);
+
+	if (new_size == 0 && ptr)
 	{
-		s[i] = b;
+		free(ptr);
+		return (NULL);
 	}
 
-	return (s);
-}
+	if (!ptr)
+		return (malloc(new_size));
 
-/**
- * *_calloc - allocates memory for an array
- * @nmemb: number of elements in the array
- * @size: size of each element
- *
- * Return: pointer to allocated memory
- */
-void *_calloc(unsigned int nmemb, unsigned int size)
-{
-	char *ptr;
-
-	if (nmemb == 0 || size == 0)
+	ptr1 = malloc(new_size);
+	if (!ptr1)
 		return (NULL);
 
-	ptr = malloc(size * nmemb);
+	old_ptr = ptr;
 
-	if (ptr == NULL)
-		return (NULL);
+	if (new_size < old_size)
+	{
+		for (i = 0; i < new_size; i++)
+			ptr1[i] = old_ptr[i];
+	}
 
-	_memset(ptr, 0, nmemb * size);
+	if (new_size > old_size)
+	{
+		for (i = 0; i < old_size; i++)
+			ptr1[i] = old_ptr[i];
+	}
 
-	return (ptr);
+	free(ptr);
+	return (ptr1);
 }
